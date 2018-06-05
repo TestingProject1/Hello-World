@@ -1,0 +1,27 @@
+pipelines:
+  CET-perf-test:
+    group: JmeterPerformanceTest
+    label: "${COUNT}"
+    materials:
+      repo:
+        git: https://github.com/TestingProject1/Hello-World.git
+        branch: master
+    stages:
+      - perf-tests:
+          jobs:
+            EUDC:
+              resources:
+               - universal
+              artifacts:
+                - build:
+                    source: TestResults.csv
+                    destination: EUDC/
+           
+              tasks:
+
+                - exec:
+                    run_if: any
+                    command: bash
+                    arguments:
+                      - "-c"
+                      - "sleep 3"  
